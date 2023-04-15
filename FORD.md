@@ -21,3 +21,6 @@ kissfft 在 Windows-MSYS2/Ubuntu 均有仓库二进制文件，但 Windows-MSYS2
 
 @warning
 kissfft-f 仅支持单精度浮点数。
+
+@note
+kissfft 要求2的幂次方长度的输入数据，可能涉及到零填充。
