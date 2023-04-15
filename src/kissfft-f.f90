@@ -3,7 +3,7 @@
 module kissfft
     use, intrinsic :: iso_c_binding
     private
-    public :: fft, kiss_fft_cpx
+    public :: fft, kiss_fft_cpx, fftshift, ifftshift
     type fft
         type(c_ptr) :: kiss_fft_cfg
     contains
@@ -33,6 +33,14 @@ module kissfft
             import
             type(c_ptr), value :: kiss_fft_cfg
         end subroutine kiss_fft_free
+        pure module function fftshift(x) result(y)
+            type(kiss_fft_cpx), dimension(:), intent(in) :: x
+            type(kiss_fft_cpx), dimension(size(x)) :: y
+        end function fftshift
+        pure module function ifftshift(x) result(y)
+            type(kiss_fft_cpx), dimension(:), intent(in) :: x
+            type(kiss_fft_cpx), dimension(size(x)) :: y
+        end function ifftshift
     end interface
 contains
     !> 初始化

@@ -11,6 +11,7 @@ project(
 )
 kissfft_f_src = files(
     'src/kissfft-f.f90',
+    'src/kissfft-f_fftshift.f90',
 )
 kissfft_f_lib = library(
     meson.project_name(),
