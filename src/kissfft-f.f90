@@ -7,8 +7,8 @@ module kissfft
     type fft
         type(c_ptr) :: kiss_fft_cfg
     contains
-        procedure :: init
-        procedure :: perform
+        procedure :: init, init_nd
+        procedure :: perform, perform_nd
         procedure :: free
     end type fft
     type, bind(c) :: kiss_fft_cpx
@@ -29,6 +29,20 @@ module kissfft
             type(c_ptr), value :: kiss_fft_cfg
             type(kiss_fft_cpx), dimension(*), intent(inout) :: fin, fout
         end subroutine kiss_fft
+        function kiss_fftnd_alloc(dims, ndims, inverse_fft, mem, lenmem) bind(c, name="kiss_fftnd_alloc") result(kiss_fft_cfg)
+            import
+            integer(c_int), dimension(*), intent(in) :: dims
+            integer(c_int), value :: ndims
+            integer(c_int), value :: inverse_fft
+            type(c_ptr), value :: mem
+            integer(c_int), value :: lenmem
+            type(c_ptr) :: kiss_fft_cfg
+        end function kiss_fftnd_alloc
+        subroutine kiss_fftnd(kiss_fft_cfg, fin, fout) bind(c, name="kiss_fftnd")
+            import :: kiss_fft_cpx, c_ptr
+            type(c_ptr), value :: kiss_fft_cfg
+            type(kiss_fft_cpx), dimension(*), intent(inout) :: fin, fout
+        end subroutine kiss_fftnd
         subroutine kiss_fft_free(kiss_fft_cfg) bind(c, name="free")
             import
             type(c_ptr), value :: kiss_fft_cfg
@@ -50,12 +64,26 @@ contains
         integer(c_int), value :: inverse_fft
         self%kiss_fft_cfg = kiss_fft_alloc(nfft, inverse_fft, c_null_ptr, 0_c_int)
     end subroutine init
+    !> 初始化（多维）
+    subroutine init_nd(self, dims, ndims, inverse_fft)
+        class(fft), intent(inout) :: self
+        integer(c_int), dimension(*), intent(in) :: dims
+        integer(c_int), value :: ndims
+        integer(c_int), value :: inverse_fft
+        self%kiss_fft_cfg = kiss_fftnd_alloc(dims, ndims, inverse_fft, c_null_ptr, 0_c_int)
+    end subroutine init_nd
     !> 傅里叶变换
     subroutine perform(self, fin, fout)
         class(fft), intent(inout) :: self
         type(kiss_fft_cpx), dimension(:), intent(inout) :: fin, fout
         call kiss_fft(self%kiss_fft_cfg, fin, fout)
     end subroutine perform
+    !> 傅里叶变换（多维）
+    subroutine perform_nd(self, fin, fout)
+        class(fft), intent(inout) :: self
+        type(kiss_fft_cpx), dimension(*), intent(inout) :: fin, fout
+        call kiss_fftnd(self%kiss_fft_cfg, fin, fout)
+    end subroutine perform_nd
     !> 释放内存
     subroutine free(self)
         class(fft), intent(inout) :: self

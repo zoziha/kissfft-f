@@ -1,5 +1,5 @@
 name = "kissfft-f"
-version = "1.0.0"
+version = "2.0.0"
 license = "BSD-3-Clause"
 author = "左志华"
 maintainer = "zuo.zhihua@qq.com"
@@ -9,11 +9,12 @@ auto-executables = true
 auto-tests = true
 auto-examples = true
 module-naming = false
-link = "kissfft"
 [install]
 library = true
 [fortran]
 implicit-typing = false
 implicit-external = false
 source-form = "free"
+[dependencies]
+kissfft = { path = "subprojects/kissfft"}
 

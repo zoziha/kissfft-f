@@ -2,8 +2,10 @@
 
 kissfft 是一款基于 BSD-3 协议的快速傅里叶变换库，kissfft-f 是 kissfft 的 Fortran 封装，基本满足日常的 FFT 需求。
 
-kissfft 在 Windows-MSYS2/Ubuntu 均有仓库二进制文件，省去了编译过程，而 BLAS 和 FFT 是如此重要，所以撰写了 kissfft-f。
-[fffc](ttps://gitee.com/ship-stack/fffc) 中基于 OpenBLAS 对线性代数进行了封装，而 kissfft-f 则基于 kissfft 对 FFT 进行了封装。
+kissfft 在 Windows-MSYS2/Ubuntu 均有仓库二进制文件，但 Windows-MSYS2 中的 kissfft 不完整，
+于是本库重新整理了 kissfft 的源码，以便在各操作系统中使用。
+同时，本库的 kissfft 移除了 CMake/Make 支持，添加了 fpm/meson 支持，对于想使用前两者构建工具的开发者，
+可前往[ kissfft 源码库](https://github.com/mborgerding/kissfft)。
 
 ## 依赖
 
@@ -25,6 +27,8 @@ kissfft 在 Windows-MSYS2/Ubuntu 均有仓库二进制文件，省去了编译�
 > meson compile -C _build
 > meson install -C _build --destdir=C:/msys64
 ```
+
+备注：安装时，需手动将 *.mod/smod 文件复制到 /mingw64/include 目录下（meson 未完善的缺陷）。
 
 ## 使用
 

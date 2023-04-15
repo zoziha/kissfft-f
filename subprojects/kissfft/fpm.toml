@@ -1,0 +1,9 @@
+name = 'kissfft'
+version = "131.1.1"
+license = "BSD-3-Clause"
+description = "A Fast Fourier Transform based up on the principle: Keep It Simple, Stupid"
+author = "Mark Borgerding"
+[install]
+library = true
+[build]
+auto-tests = false
