@@ -22,6 +22,7 @@ kissfft_lib = library(
     kissfft_src,
     include_directories: kissfft_inc,
     version: meson.project_version(),
+    dependencies: dependency('openmp'),
     install: true,
 )
 kissfft_dep = declare_dependency(
