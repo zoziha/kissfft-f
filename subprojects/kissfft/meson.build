@@ -49,6 +49,7 @@ install_headers(
     'include/kiss_fftr.h',
     'include/kissfft_i32.hh',
     'include/kissfft.hh',
+    install_dir: join_paths(get_option('prefix'), 'include', meson.project_name()),
 )
 pkg = import('pkgconfig')
 pkg.generate(
@@ -56,4 +57,5 @@ pkg.generate(
     description: 'A Fast Fourier Transform based up on the principle: Keep It Simple, Stupid',
     version: meson.project_version(),
     libraries: kissfft_lib,
+    subdirs: meson.project_name(),
 )
