@@ -1,1 +1,2 @@
 option('USE_SIMD', type: 'boolean', value: false, description: 'Enable SIMD support')
+option('kiss_fft_scalar', type: 'string', value: 'float', choices: ['float', 'double', 'int32_t', 'int16_t'], description: 'Scalar type for kiss_fft')

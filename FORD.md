@@ -20,7 +20,7 @@ kissfft 在 Windows-MSYS2/Ubuntu 均有仓库二进制文件，但 Windows-MSYS2
 可前往[kissfft源码库](https://github.com/mborgerding/kissfft)。
 
 @warning
-kissfft-f 仅支持单精度浮点数。
+kissfft-f 默认支持单精度浮点数，可以通过宏定义 `-Dkiss_fft_scalar=double` 以支持双精度。
 
 @note
 kissfft 要求2的幂次方长度的输入数据，可能涉及到零填充。
