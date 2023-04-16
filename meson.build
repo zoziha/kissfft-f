@@ -2,8 +2,8 @@ project(
     'kissfft-f',
     'fortran',
     version: '2.0.0',
-    license: 'BSD-3',
-    meson_version: '>= 0.50.0',
+    license: 'BSD-3-Clause',
+    meson_version: '>= 0.55.0',
     default_options: [
         'buildtype=debugoptimized',
         'fortran_std=f2008',
@@ -28,7 +28,7 @@ kissfft_f_dep = declare_dependency(
 )
 example_fft = executable(
     'fft', 
-    'example/fft.f90', 
+    'example/fft.f90',
     dependencies: [
         kissfft_f_dep,
     ],
@@ -65,14 +65,14 @@ kissfft_f_obj = []
 foreach source: kissfft_f_src_filenames
     kissfft_f_obj += 'src_'+source+obj_suffix
 endforeach
-install_subdir(kissfft_f_lib.path()+'.p',
+install_subdir(kissfft_f_lib.full_path()+'.p',
     install_dir: 'include'/meson.project_name(),
     strip_directory: true,
     exclude_files: [
         'depscan.dd',
         meson.project_name()+'-deps.json',
-        symbols_file,
         meson.project_name()+'.dat',
+        symbols_file,
         kissfft_f_obj,
     ]
 )
@@ -81,7 +81,7 @@ pkg.generate(
     name: meson.project_name(),
     description: 'KissFFT wrapper for Fortran',
     version: meson.project_version(),
-    libraries: [kissfft_f_lib],
+    libraries: kissfft_f_lib,
     requires: 'kissfft',
     subdirs: meson.project_name(),
 )

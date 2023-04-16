@@ -12,7 +12,6 @@ program main
     do i = 1, 4
         print *, out(i)%re, out(i)%im
     end do
-    call fft_obj%free()
 end program main
 !  10.0000000       0.00000000
 ! -2.00000000       2.00000000

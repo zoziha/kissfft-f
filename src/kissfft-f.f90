@@ -9,7 +9,7 @@ module kissfft
     contains
         procedure :: init, init_nd
         procedure :: perform, perform_nd
-        procedure :: free
+        final :: free
     end type fft
     type, bind(c) :: kiss_fft_cpx
         real(c_float) :: re
@@ -29,7 +29,8 @@ module kissfft
             type(c_ptr), value :: kiss_fft_cfg
             type(kiss_fft_cpx), dimension(*), intent(inout) :: fin, fout
         end subroutine kiss_fft
-        function kiss_fftnd_alloc(dims, ndims, inverse_fft, mem, lenmem) bind(c, name="kiss_fftnd_alloc") result(kiss_fft_cfg)
+        function kiss_fftnd_alloc(dims, ndims, inverse_fft, mem, lenmem) &
+            bind(c, name="kiss_fftnd_alloc") result(kiss_fft_cfg)
             import
             integer(c_int), dimension(*), intent(in) :: dims
             integer(c_int), value :: ndims
@@ -86,7 +87,7 @@ contains
     end subroutine perform_nd
     !> 释放内存
     subroutine free(self)
-        class(fft), intent(inout) :: self
+        type(fft), intent(inout) :: self
         call kiss_fft_free(self%kiss_fft_cfg)
     end subroutine free
 end module kissfft

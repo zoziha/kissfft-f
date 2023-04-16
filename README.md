@@ -28,8 +28,6 @@ kissfft 在 Windows-MSYS2/Ubuntu 均有仓库二进制文件，但 Windows-MSYS2
 > meson install -C _build --destdir=C:/msys64
 ```
 
-备注：安装时，需手动将 *.mod/smod 文件复制到 /mingw64/include 目录下（meson 未完善的缺陷）。
-
 ## 使用
 
 在 fpm 中使用 kissfft-f：
@@ -74,7 +72,6 @@ program main
     do i = 1, 4
         print *, out(i)%re, out(i)%im
     end do
-    call fft_obj%free()
 end program main
 !   10.0000000       0.00000000
 !  -2.00000000       2.00000000
@@ -101,7 +98,6 @@ program main
     do i = 1, 4
         print *, out(i)%re, out(i)%im
     end do
-    call fft_obj%free()
 end program main
 !  4.00000000       0.00000000
 !  8.00000000       0.00000000
@@ -131,7 +127,6 @@ program main
         end do
         write (*, *)
     end do
-    call fft_obj%free()
 end program main
 ! +100.0+0.000, -20.00+20.00, -20.00+0.000, -20.00-20.00,
 ! -20.00+20.00, +0.000-8.000, +4.000-4.000, +8.000+0.000,
